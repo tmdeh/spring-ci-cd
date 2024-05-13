@@ -10,9 +10,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-class TestServiceImplTest {
+public class TestServiceImplTest  {
 
-  @Autowired private TestServiceImpl testService;
+
+  @Autowired private TestService testService;
 
   @Value("${server.port}")
   private String port;
@@ -22,21 +23,22 @@ class TestServiceImplTest {
 
   @Test
   void checkPortSuccess(){
-    assertEquals("8080", port);
+    assertEquals(port, "3444");
   }
+
 
   @Test
   void checkPortFail(){
-    assertNotEquals("3334", port);
+    assertNotEquals(port, "8080");
   }
 
   @Test
-  void getTestStringSuccess() {
-    assertEquals("okay " + applicationName + " " + port, testService.getString());
+  void getTestStringSuccess(){
+    assertEquals(testService.getString(),"okay develop server 3444");
   }
 
   @Test
-  void getTestStringFail() {
-    assertNotEquals("okay Test FAIL", testService.getString());
+  void getTestStringFail(){
+    assertNotEquals(testService.getString(),"okay develop server 8080");
   }
 }
